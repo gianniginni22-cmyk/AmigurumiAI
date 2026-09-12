@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amigurumi AI</title>
+<!-- build 0.7.4-DIAG -->
+<style>
+/* ================================================================
+   AMIGURUMI AI — UI v0.7.4
+   Tutto il look & feel è qui: cambia le variabili sotto per
+   modificare rapidamente colori, raggi, spaziature e dimensioni.
+   ================================================================ */
+:root{
+  --ui-bg:#faf9ff; --ui-surface:#fff; --ui-surface-2:#f7f5ff;
+  --ui-ink:#1f2440; --ui-muted:#737892; --ui-line:#e8e7f1;
+  --ui-accent:#7657ff; --ui-accent-2:#9d7cff; --ui-accent-soft:#f0ecff;
+  --ui-success:#18a873; --ui-warning:#c88718; --ui-danger:#d94f69;
+  --ui-radius:18px; --ui-radius-sm:12px; --ui-sidebar:250px; --ui-right:300px;
+  --ui-shadow:0 10px 35px rgba(50,38,100,.07); --ui-shadow-soft:0 5px 20px rgba(50,38,100,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--ui-bg);color:var(--ui-ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:var(--ui-sidebar) minmax(0,1fr);grid-template-rows:64px 1fr}
+/* Sidebar */
+.sidebar{grid-row:1/3;background:rgba(255,255,255,.92);border-right:1px solid var(--ui-line);padding:18px 14px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 10px;font-size:18px;font-weight:900;letter-spacing:-.3px}.brand-bear{font-size:24px}.version{font-size:10px;font-weight:800;color:var(--ui-accent);background:var(--ui-accent-soft);padding:3px 6px;border-radius:999px;margin-left:auto}
+.nav{display:grid;gap:4px}.nav button{border:0;background:transparent;color:#5f6580;text-align:left;padding:10px 11px;border-radius:11px;font-weight:700;display:flex;align-items:center;gap:11px}.nav button:hover{background:#f5f3fb;color:var(--ui-ink)}.nav button.active{background:var(--ui-accent-soft);color:#5540d4}.nav-icon{width:20px;text-align:center;font-size:16px}
+.divider{height:1px;background:var(--ui-line);margin:2px 4px}.side-title{font-size:11px;color:#969bb0;font-weight:800;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
+.recent{display:grid;gap:6px}.recent-item{display:flex;align-items:center;gap:9px;padding:6px 7px;border-radius:10px}.recent-item:hover{background:#f7f6fb}.thumb{width:34px;height:34px;border-radius:9px;background:#f0edf8;display:grid;place-items:center;overflow:hidden;font-size:18px}.thumb img{width:100%;height:100%;object-fit:cover}.recent-name{font-weight:700;font-size:12px}.recent-time{font-size:10px;color:#9a9eb0}.upgrade{margin-top:auto;border:1px solid #e4ddff;background:linear-gradient(145deg,#f4f0ff,#faf7ff);border-radius:16px;padding:14px}.upgrade b{display:block;margin-bottom:3px}.upgrade p{margin:0;color:var(--ui-muted);font-size:11px}.upgrade button{margin-top:10px;border:0;background:var(--ui-accent);color:white;border-radius:9px;padding:8px 10px;font-weight:800;width:100%}
+/* Header */
+.topbar{grid-column:2;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--ui-line);display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:0 22px;position:sticky;top:0;z-index:10}.top-pill{border:1px solid var(--ui-line);background:#fff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}.buy{background:var(--ui-accent);color:#fff;border-color:var(--ui-accent)}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--ui-accent),#9b79ff);color:#fff;font-weight:900}
+/* Main */
+.main{grid-column:2;min-width:0;padding:32px 34px 46px;overflow:hidden}.layout{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) var(--ui-right);gap:26px}.workspace{min-width:0}.hero{text-align:center;padding:28px 12px 20px}.hero-icon{font-size:38px;margin-bottom:7px}.hero h1{font-size:40px;line-height:1.08;letter-spacing:-1.8px;margin:0 auto 12px;max-width:780px}.gradient-text{background:linear-gradient(90deg,#3d3a9e,var(--ui-accent),#a35ce8);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--ui-muted);font-size:16px;margin:0 auto;max-width:680px}
+/* Composer */
+.composer{background:#fff;border:1px solid #ddd9f5;border-radius:22px;box-shadow:0 15px 45px rgba(92,67,170,.10);overflow:hidden;max-width:900px;margin:0 auto}.composer-top{display:flex;gap:12px;align-items:flex-start;padding:17px 18px 8px}.composer-photo{width:34px;height:34px;border-radius:10px;background:var(--ui-accent-soft);display:grid;place-items:center;color:#6048d8;flex:none}.composer textarea{border:0;outline:0;resize:none;width:100%;min-height:54px;padding:5px 0;font-size:16px;color:var(--ui-ink);background:transparent}.composer textarea::placeholder{color:#a0a5ba}.composer-bottom{display:flex;align-items:center;gap:7px;padding:8px 12px 12px}.mode-chip{border:1px solid var(--ui-line);background:#fff;color:#626981;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800}.mode-chip.active{background:var(--ui-accent-soft);border-color:#ded5ff;color:#5841d4}.composer-spacer{flex:1}.send{width:40px;height:40px;border:0;border-radius:12px;background:var(--ui-accent);color:#fff;font-size:17px}.send:disabled{opacity:.55;cursor:not-allowed}.hidden-input{display:none}
+.composer-hint{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;color:#8b90a5;font-size:11px;margin:11px 0}.hint{display:flex;gap:5px;align-items:center}
+/* Examples */
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 2px 12px}.section-head h2{font-size:15px;margin:0}.section-head button{border:0;background:none;color:var(--ui-accent);font-weight:800;font-size:12px}.examples{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.example{border:1px solid var(--ui-line);background:#fff;border-radius:14px;overflow:hidden;text-align:left;transition:.18s;cursor:pointer}.example:hover{transform:translateY(-2px);box-shadow:var(--ui-shadow)}.example-img{height:112px;background:linear-gradient(135deg,#f4f1ff,#fff);display:grid;place-items:center;font-size:40px}.example-body{padding:9px}.example b{font-size:12px}.example small{display:block;color:#9398aa;margin-top:2px}
+/* Right panel */
+.rightbar{background:rgba(255,255,255,.55);border:1px solid var(--ui-line);border-radius:20px;padding:17px;height:max-content;position:sticky;top:88px}.right-card{background:linear-gradient(145deg,#f2efff,#faf9ff);border:1px solid #e5ddff;border-radius:15px;padding:15px}.right-card .eyebrow{font-size:11px;color:#6850db;font-weight:900}.right-card h3{margin:5px 0 3px;font-size:15px}.right-card p{margin:0;color:var(--ui-muted);font-size:11px}.link-btn{margin-top:11px;border:0;background:#fff;color:#5d45d7;border-radius:9px;padding:7px 10px;font-size:11px;font-weight:900}.quick{display:grid;gap:7px;margin-top:16px}.quick button{border:1px solid var(--ui-line);background:#fff;border-radius:12px;padding:10px;text-align:left;display:flex;align-items:center;gap:10px}.quick button:hover{border-color:#d9d0ff;background:#fbfaff}.quick-icon{width:30px;height:30px;border-radius:9px;background:var(--ui-accent-soft);display:grid;place-items:center}.quick b{display:block;font-size:12px}.quick span{font-size:10px;color:#969aad}.right-list{display:grid;gap:4px;margin-top:10px}.right-list .recent-item{padding:7px 3px}
+/* Advanced controls */
+.advanced{max-width:900px;margin:26px auto 0;border:1px solid var(--ui-line);background:#fff;border-radius:16px;overflow:hidden}.advanced summary{padding:13px 16px;cursor:pointer;font-weight:800;color:#5f6580}.advanced-body{padding:4px 16px 16px;border-top:1px solid var(--ui-line)}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:11px;font-weight:800;color:#686e85;margin:10px 0 5px}.field input,.field select{width:100%;border:1px solid var(--ui-line);border-radius:10px;padding:9px;background:#fff;outline:none}.field input:focus,.field select:focus{border-color:#bcaeff;box-shadow:0 0 0 3px #eee9ff}.settings-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.soft-btn{border:1px solid var(--ui-line);background:#f8f7fb;color:#5f6580;border-radius:9px;padding:8px 10px;font-weight:800}.analysis-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.analysis-row button{width:100%}
+/* Result */
+.result{max-width:1200px;margin:30px auto 0}.result-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:12px}.result-title{font-size:18px;margin:0}.result-meta{color:var(--ui-muted);font-size:12px;margin-top:3px}.result-actions{display:flex;gap:7px;flex-wrap:wrap}.result-card{background:#fff;border:1px solid var(--ui-line);border-radius:18px;box-shadow:var(--ui-shadow-soft);overflow:hidden}.result-top{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px}.visual{height:310px;border-radius:13px;background:#f5f3f8;display:flex;align-items:center;justify-content:center;overflow:hidden}.visual img{max-width:100%;max-height:100%;object-fit:contain}.model-summary{padding:5px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{background:var(--ui-accent-soft);color:#5736ca;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800}.summary{color:var(--ui-muted);font-size:12px;margin:10px 0}.spec{display:grid;grid-template-columns:1fr 1fr;gap:7px}.spec div{background:#f7f6fa;padding:9px;border-radius:10px;font-size:12px}.spec b{display:block;font-size:10px;color:#9095a8;margin-bottom:2px}.warning{padding:0 16px}.warn{background:#fff7e5;border:1px solid #f1dda8;padding:10px;border-radius:10px;font-size:12px;color:#785a1c}
+.tabs{display:flex;gap:5px;overflow:auto;padding:0 16px;border-top:1px solid var(--ui-line);border-bottom:1px solid var(--ui-line)}.tab{border:0;background:transparent;color:#777c91;padding:11px 10px;font-size:11px;font-weight:800;white-space:nowrap;border-bottom:2px solid transparent}.tab.active{color:#5a42d3;border-bottom-color:var(--ui-accent)}.panel{display:none;padding:16px}.panel.active{display:block}pre{white-space:pre-wrap;background:#f8f7fa;border-radius:12px;padding:14px;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;max-height:560px;overflow:auto;margin:0}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.actions button{border:1px solid var(--ui-line);background:#f7f6fa;color:#5f6478;border-radius:9px;padding:8px 10px;font-size:11px;font-weight:800}.quality{padding:0 16px 16px}.progress-wrap{padding:0 16px 14px}.progress{height:6px;background:#eeeaf5;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ui-accent),var(--ui-accent-2));transition:.3s}.status{color:var(--ui-muted);font-size:11px}.bottom-status{display:flex;justify-content:space-between;color:#9a9eae;font-size:10px;margin-top:16px}.ok-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ui-success);margin-right:5px}
+/* Settings overlay */
+#settingsPanel{display:none}.settings-note{color:var(--ui-muted);font-size:11px;margin:8px 0}.key-actions{display:flex;gap:7px}.key-actions input{flex:1}
+@media(max-width:1200px){:root{--ui-right:270px}.examples{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:980px){.app{grid-template-columns:72px minmax(0,1fr)}.sidebar{padding:16px 9px}.brand-text,.version,.nav-label,.side-title,.recent,.upgrade{display:none}.brand{justify-content:center}.nav button{justify-content:center}.main{padding:24px 18px}.rightbar{display:none}}
+@media(max-width:700px){.hero h1{font-size:30px}.examples{grid-template-columns:repeat(2,1fr)}.result-top,.settings-grid,.analysis-row{grid-template-columns:1fr}.topbar{padding:0 10px}.top-pill{display:none}.main{padding:18px 10px}.composer-bottom{flex-wrap:wrap}.composer-spacer{display:none}}
+@media print{.sidebar,.topbar,.rightbar,.hero,.composer,.advanced,.examples,.result-actions,.tabs{display:none!important}.app{display:block}.main{padding:0}.result{margin:0}.result-card{border:0;box-shadow:none}}
+.sheet-panel{background:#fff;border:1px solid #ebe7f0;border-radius:14px;padding:14px;min-height:300px;overflow:auto}.sheet-panel img{max-width:100%}.visual img{max-width:100%;max-height:100%;object-fit:contain}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-bear">🧸</span><span class="brand-text">Amigurumi AI</span><span class="version">v0.7.4</span></div>
+    <nav class="nav" id="mainNav">
+      <button class="active" data-view="home"><span class="nav-icon">⌂</span><span class="nav-label">Home</span></button>
+      <button data-view="create"><span class="nav-icon">✦</span><span class="nav-label">Crea Pattern</span></button>
+      <button data-view="projects"><span class="nav-icon">□</span><span class="nav-label">I miei progetti</span></button>
+      <button data-view="models"><span class="nav-icon">◇</span><span class="nav-label">Modelli</span></button>
+      <button data-view="templates"><span class="nav-icon">▤</span><span class="nav-label">Template</span></button>
+      <button data-view="library"><span class="nav-icon">▥</span><span class="nav-label">Libreria</span></button>
+      <button data-view="market"><span class="nav-icon">♢</span><span class="nav-label">Marketplace</span></button>
+      <button data-view="settings"><span class="nav-icon">⚙</span><span class="nav-label">Impostazioni</span></button>
+    </nav>
+    <div class="divider"></div>
+    <div class="side-title">Recenti</div>
+    <div class="recent" id="recentList">
+      <div class="recent-item"><div class="thumb">🧸</div><div><div class="recent-name">Orsetto Teddy</div><div class="recent-time">2 ore fa</div></div></div>
+      <div class="recent-item"><div class="thumb">🐱</div><div><div class="recent-name">Gatto</div><div class="recent-time">5 ore fa</div></div></div>
+      <div class="recent-item"><div class="thumb">🐰</div><div><div class="recent-name">Coniglio</div><div class="recent-time">1 giorno fa</div></div></div>
+      <div class="recent-item"><div class="thumb">🐶</div><div><div class="recent-name">Cane</div><div class="recent-time">2 giorni fa</div></div></div>
+    </div>
+    <div class="upgrade"><b>♛ Passa a Pro</b><p>Sblocca tutte le funzionalità e crea senza limiti.</p><button type="button">Scopri Pro</button></div>
+  </aside>
+
+  <header class="topbar">
+    <div class="top-pill">🪙 Crediti: <span id="credits">248</span></div>
+    <button class="top-pill buy" type="button">＋ Acquista</button>
+    <button class="top-pill" type="button" title="Notifiche">♧</button>
+    <div class="avatar">G</div><span style="font-size:12px">⌄</span>
+  </header>
+
+  <main class="main">
+    <div class="layout">
+      <section class="workspace">
+        <div class="hero" id="homeView">
+          <div class="hero-icon">🧸</div>
+          <h1>Crea il tuo <span class="gradient-text">amigurumi</span><br>con l’Intelligenza Artificiale</h1>
+          <p>Trasforma un’immagine, un testo o un’idea in un pattern di amigurumi completo e pronto da realizzare.</p>
+        </div>
+
+        <section class="composer" id="composer">
+          <div class="composer-top">
+            <div class="composer-photo">▧</div>
+            <textarea id="desc" rows="2" placeholder="Descrivi il tuo progetto…"></textarea>
+          </div>
+          <div class="composer-bottom">
+            <button class="mode-chip active" id="imageMode" type="button">▧ Immagine</button>
+            <button class="mode-chip" id="textMode" type="button">T Testo</button>
+            <button class="mode-chip" id="bothMode" type="button">▣ Entrambi</button>
+            <input id="file" class="hidden-input" type="file" accept="image/*">
+            <div class="composer-spacer"></div>
+            <button class="mode-chip" id="modelMode" type="button">◈ Model⌄</button>
+            <button class="send" id="go" type="button" title="Analizza e genera">➤</button>
+          </div>
+        </section>
+        <div class="composer-hint">
+          <span class="hint">⌁ Carica una foto</span><span class="hint">⌁ Oppure descrivi il soggetto</span><span class="hint">⌁ Puoi usare entrambi</span>
+        </div>
+
+        <div class="section-head"><h2>Esempi popolari</h2><button type="button">Vedi tutti →</button></div>
+        <div class="examples" id="examples">
+          <button class="example" type="button" data-example="Orsetto Teddy"><div class="example-img">🧸</div><div class="example-body"><b>Orsetto Teddy</b><small>Da immagine</small></div></button>
+          <button class="example" type="button" data-example="Gatto"><div class="example-img">🐱</div><div class="example-body"><b>Gatto</b><small>Da testo</small></div></button>
+          <button class="example" type="button" data-example="Coniglio"><div class="example-img">🐰</div><div class="example-body"><b>Coniglio</b><small>Da immagine</small></div></button>
+          <button class="example" type="button" data-example="Cane"><div class="example-img">🐶</div><div class="example-body"><b>Cane</b><small>Da modello</small></div></button>
+          <button class="example" type="button" data-example="Casetta"><div class="example-img">🏠</div><div class="example-body"><b>Casetta</b><small>Da testo</small></div></button>
+        </div>
+
+        <details class="advanced" id="advancedSettings">
+          <summary>⚙ Impostazioni avanzate</summary>
+          <div class="advanced-body">
+            <div class="settings-grid">
+              <div class="field"><label>Altezza (cm)</label><input id="height" type="number" value="15" min="5" max="80"></div>
+              <div class="field"><label>Uncinetto (mm)</label><input id="hook" type="number" value="2.5" step=".5" min="1" max="8"></div>
+              <div class="field"><label>Maglie / 10 cm</label><input id="spc" type="number" value="0" min="0" max="60" step=".5"></div>
+              <div class="field"><label>Giri / 10 cm</label><input id="rpc" type="number" value="0" min="0" max="60" step=".5"></div>
+              <div class="field"><label>Livello</label><select id="level"><option>principiante</option><option selected>intermedio</option><option>avanzato</option></select></div>
+              <div class="field"><label>Stile</label><select id="style"><option selected>fedele alla foto</option><option>più semplice</option><option>kawaii</option></select></div>
+            </div>
+            <div class="settings-note" id="filename">Nessuna immagine selezionata.</div>
+            <div class="settings-actions">
+              <button class="soft-btn" id="chooseImage" type="button">▧ Scegli immagine</button>
+              <button class="soft-btn" id="designBtn" type="button">✦ Crea concept + template</button>
+              <button class="soft-btn" id="decomposeBtn" type="button">▣ Scomponi soggetto</button>
+              <button class="soft-btn" id="complexityBtn" type="button">⌁ Analizza complessità</button>
+            </div>
+            <div id="designBox" class="warn" style="display:none;margin-top:10px"></div>
+            <div id="decompositionBox" class="warn" style="display:none;margin-top:10px"></div>
+            <div id="complexityBox" class="warn" style="display:none;margin-top:10px"></div>
+          </div>
+        </details>
+
+        <details class="advanced" id="settingsPanel">
+          <summary>🔐 Impostazioni AI</summary>
+          <div class="advanced-body">
+            <div class="field"><label>OpenAI API key</label><div class="key-actions"><input id="apikey" type="password" autocomplete="off" placeholder="sk-…" spellcheck="false"><button class="soft-btn" id="savekey" type="button">Salva</button><button class="soft-btn" id="removekey" type="button">Rimuovi</button></div></div>
+            <p id="keystatus" class="settings-note">La chiave viene salvata solo nella configurazione locale di questa app.</p><p id="modelstatus" class="settings-note"></p>
+          </div>
+        </details>
+
+        <div class="result" id="resultArea">
+          <div class="result-head">
+            <div><h2 class="result-title">Il tuo progetto</h2><div class="result-meta" id="status"><span class="ok-dot"></span>Pronto per creare</div></div>
+            <div class="result-actions"><button class="actions" id="txt" type="button">⬇ TXT</button><button class="actions" id="json" type="button">⬇ JSON</button><button class="actions" id="print" type="button">🖨 PDF</button></div>
+          </div>
+          <div class="result-card">
+            <div class="result-top">
+              <div><div class="visual" id="visual">Nessuna foto</div><div id="modelSheetVisual" class="visual" style="margin-top:9px;height:300px;display:none"></div><div id="conceptVisual" class="visual" style="margin-top:9px;height:190px;display:none"></div></div>
+              <div class="model-summary"><div id="chips" class="chips"></div><p id="summary" class="summary">Genera un progetto per vedere modello, dimensioni e palette.</p><div id="spec" class="spec"></div><div class="actions"><button id="openPattern" type="button">✦ Apri pattern</button></div></div>
+            </div>
+            <div class="warning" id="warning"></div><div class="quality" id="quality"></div>
+            <div class="progress-wrap"><div class="progress"><i id="bar"></i></div></div>
+            <div class="tabs">
+              <button class="tab active" data-t="modelSheet">Model Sheet</button><button class="tab" data-t="pattern">Pattern</button><button class="tab" data-t="assembly">Assemblaggio</button><button class="tab" data-t="graph">Shape Graph</button><button class="tab" data-t="parts">Parti</button><button class="tab" data-t="design">Design Model</button><button class="tab" data-t="fit">Profile Fit</button><button class="tab" data-t="pose">Depth &amp; Pose</button><button class="tab" data-t="checks">Controlli</button>
+            </div>
+            <div class="panel active" id="modelSheet"><div id="modelSheetPanel" class="sheet-panel">Nessun Model Sheet disponibile.</div></div>
+            <div class="panel" id="pattern"><pre id="patternText">—</pre></div>
+            <div class="panel" id="assembly"><pre id="assemblyText">—</pre></div>
+            <div class="panel" id="graph"><pre id="graphText">—</pre></div>
+            <div class="panel" id="parts"><pre id="partsText">—</pre></div>
+            <div class="panel" id="design"><pre id="designText">—</pre></div>
+            <div class="panel" id="fit"><pre id="fitText">—</pre></div>
+            <div class="panel" id="pose"><pre id="poseText">—</pre></div>
+            <div class="panel" id="checks"><pre id="checksText">—</pre><div id="pipelineDiag" class="warn" style="margin-top:12px"></div></div>
+          </div>
+          <div class="bottom-status"><span><span class="ok-dot"></span>Pronto</span><span>Più di un’app. Il tuo assistente per l’amigurumi.</span></div>
+        </div>
+      </section>
+
+      <aside class="rightbar">
+        <div class="right-card"><div class="eyebrow">♕ MODELLI PRONTI</div><h3>Inizia da un template</h3><p>Parti subito con strutture già collaudate e personalizzale con l’AI.</p><button class="link-btn" type="button">Vedi tutti →</button></div>
+        <div class="section-head" style="margin-top:18px"><h2>Azioni rapide</h2></div>
+        <div class="quick">
+          <button id="quickImage" type="button"><span class="quick-icon">▧</span><span><b>Da immagine</b><span>Carica una foto e crea il pattern</span></span></button>
+          <button id="quickText" type="button"><span class="quick-icon">T</span><span><b>Da testo</b><span>Descrivi il tuo soggetto</span></span></button>
+          <button id="quickModel" type="button"><span class="quick-icon">◇</span><span><b>Da modello</b><span>Usa un template esistente</span></span></button>
+        </div>
+        <div class="section-head" style="margin-top:20px"><h2>Ultimi progetti</h2><button type="button">Vedi tutti →</button></div>
+        <div class="right-list">
+          <div class="recent-item"><div class="thumb">🧸</div><div><div class="recent-name">Orsetto Teddy</div><div class="recent-time">2 ore fa</div></div></div>
+          <div class="recent-item"><div class="thumb">🐱</div><div><div class="recent-name">Gatto</div><div class="recent-time">5 ore fa</div></div></div>
+          <div class="recent-item"><div class="thumb">🐰</div><div><div class="recent-name">Coniglio</div><div class="recent-time">1 giorno fa</div></div></div>
+          <div class="recent-item"><div class="thumb">🐶</div><div><div class="recent-name">Cane</div><div class="recent-time">2 giorni fa</div></div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ================================================================
+   UI CONFIG — il punto più semplice da modificare per la prima fase.
+   Testi/nav/esempi possono cambiare senza toccare la pipeline.
+   ================================================================ */
+const UI_CONFIG={
+  appVersion:'0.7.4',
+  credits:248,
+  examples:[['Orsetto Teddy','🧸','Da immagine'],['Gatto','🐱','Da testo'],['Coniglio','🐰','Da immagine'],['Cane','🐶','Da modello'],['Casetta','🏠','Da testo']]
+};
+let file=null,result=null,designModel=null,designImage=null;
+const $=x=>document.getElementById(x);
+const setStatus=t=>{$('status').innerHTML='<span class="ok-dot"></span>'+escapeHtml(t)};
+const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const partLabel=part=>part&&typeof part==='object'?(part.label||part.name||part.id||part.role||'Parte'):part;
+function load(f){if(!f)return;file=f;$('filename').textContent='📎 '+f.name;const r=new FileReader();r.onload=()=>{$('visual').innerHTML='<img src="'+r.result+'">'};r.readAsDataURL(f)}
+$('file').onchange=e=>load(e.target.files[0]);
+$('chooseImage').onclick=()=>$('file').click();
+$('imageMode').onclick=()=>$('file').click();
+$('bothMode').onclick=()=>$('file').click();
+$('textMode').onclick=()=>{$('desc').focus()};
+$('quickImage').onclick=()=>$('file').click();
+$('quickText').onclick=()=>{$('desc').focus()};
+$('quickModel').onclick=()=>{$('advancedSettings').open=true;window.scrollTo({top:$('advancedSettings').offsetTop-80,behavior:'smooth'})};
+
+function render(r,mode,warning){
+ result=r;
+ const sheet=r.model_sheet;
+ if(sheet){
+   $('modelSheetVisual').style.display='flex';
+   $('modelSheetVisual').innerHTML='<img src="'+sheet+'" style="max-width:100%;max-height:290px;object-fit:contain">';
+   $('modelSheetPanel').innerHTML='<img src="'+sheet+'" style="max-width:100%;height:auto;display:block;margin:auto">';
+ } else {
+   $('modelSheetVisual').style.display='none';
+   $('modelSheetVisual').innerHTML='';
+   $('modelSheetPanel').textContent='Nessun Model Sheet disponibile.';
+ }
+ const partItems=(r.parts||[]).map(partLabel).filter(Boolean);
+ $('chips').innerHTML=partItems.map(x=>`<span class="chip">${escapeHtml(x)}</span>`).join('');
+ $('summary').textContent=`${r.subject||'Soggetto'} — ${r.style_notes||r.semantic_summary||''}`;
+ const dims=r.dimensions||r.global_dimensions||{};
+ $('spec').innerHTML=`<div><b>Altezza</b>${dims.height_cm??'—'} cm</div><div><b>Larghezza</b>${dims.width_cm??'—'} cm</div><div><b>Profondità</b>${dims.depth_cm??'—'} cm</div><div><b>Palette</b>${(r.palette||[]).map(escapeHtml).join(', ')||'—'}</div>`;
+ $('patternText').textContent=(typeof r.pattern==='string'&&r.pattern.trim())?r.pattern:'Pattern non disponibile: la compilazione non ha prodotto istruzioni.';
+ $('assemblyText').textContent=(typeof r.assembly==='string'&&r.assembly.trim())?r.assembly:'Nessuna istruzione di assemblaggio disponibile.';
+ $('graphText').textContent=JSON.stringify(r.shape_graph||{},null,2);
+ $('partsText').textContent=JSON.stringify(r.vision_parts||[],null,2);
+ $('designText').textContent=JSON.stringify(r.design_model||r.design||designModel||{},null,2);
+ $('fitText').textContent=r.profile_fit?JSON.stringify(r.profile_fit,null,2):'Profile Fitter non eseguito: carica una foto.';
+ $('poseText').textContent=r.depth_pose?JSON.stringify(r.depth_pose,null,2):'Depth & Pose non eseguito: carica una foto.';
+ $('checksText').textContent=(r.checks||[]).map(x=>'• '+x).join('\n');
+ let g=r.pipeline_gates||{},t=r.generation_trace||{};
+ let stageNames=[['identity','Identità'],['design_model','Design Model'],['shape_graph','Shape Graph'],['geometry','Geometria'],['technique','Tecnica'],['pattern','Pattern'],['validation','Validazione']];
+ let stageHtml=stageNames.map(([k,n])=>`<span>${g[k]?'✓':'✗'} ${n}</span>`).join(' · ');
+ $('pipelineDiag').innerHTML='<b>Traccia generazione</b><br>'+stageHtml+'<br><br>Design parts: '+(t.design_part_count??'—')+' · Nodi: '+(t.graph_node_count??'—')+' · Pezzi compilati: '+(t.graph_pattern_part_count??'—')+' · Pattern: '+(t.pattern_chars??'—')+' caratteri · Assemblaggio: '+(t.assembly_chars??'—')+' caratteri · Build: '+(t.app_version||'—');
+ let q=r.quality||{},cs=(q.metrics&&q.metrics.component_scores)||{};
+ let labels={visione:'Visione',struttura_grafo:'Struttura',geometria:'Geometria',conteggi_maglie:'Conteggi',giunzioni:'Giunzioni',scala_target:'Scala'};
+ let rows=Object.keys(labels).map(k=>{let v=Math.round(cs[k]??0);return `<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;font-size:11px"><b>${labels[k]}</b><span>${v}%</span></div><div style="height:7px;background:#e9e7ef;border-radius:5px;overflow:hidden"><div style="width:${v}%;height:100%;background:var(--ui-accent)"></div></div></div>`}).join('');
+ $('quality').innerHTML=`<div style="margin-bottom:9px;font-size:12px"><b>Punteggio complessivo</b> ${q.score!=null?Math.round(q.score)+'%':'—'} — ${q.status||'—'}</div>${rows}`;
+ $('warning').innerHTML=warning?`<div class="warn">⚠ ${escapeHtml(warning)}</div>`:'';
+ if(r.complexity){let c=r.complexity;$('complexityBox').style.display='block';$('complexityBox').innerHTML='<b>Complessità rilevata: '+escapeHtml(c.level)+' — '+escapeHtml(c.score)+'/100</b><br>Confidenza: '+Math.round((c.confidence||0)*100)+'%'}
+}
+async function refreshSettings(){try{let x=await fetch('/api/settings').then(r=>r.json());$('keystatus').textContent=x.has_openai_key?'✓ Chiave configurata e pronta per l’analisi multimodale.':'Nessuna chiave configurata: verrà usata la modalità demo.';$('modelstatus').textContent='Modello: '+x.model}catch(e){$('keystatus').textContent='Impossibile leggere le impostazioni.'}}
+refreshSettings();
+$('savekey').onclick=async()=>{let key=$('apikey').value.trim();if(!key){$('keystatus').textContent='Inserisci una chiave API prima di salvarla.';return}let fd=new FormData();fd.append('openai_api_key',key);let r=await fetch('/api/settings',{method:'POST',body:fd});let x=await r.json();$('keystatus').textContent=x.has_openai_key?'✓ Chiave salvata localmente.':'Chiave rimossa.';$('apikey').value='';$('modelstatus').textContent='Modello: '+(x.model||'gpt-5.6-luna')};
+$('removekey').onclick=async()=>{let fd=new FormData();fd.append('openai_api_key','');let r=await fetch('/api/settings',{method:'POST',body:fd});let x=await r.json();$('keystatus').textContent='Chiave rimossa. La prossima analisi userà la modalità demo.';$('apikey').value=''};
+
+$('designBtn').onclick=async()=>{
+ $('designBtn').disabled=true;$('designBtn').textContent='⏳ Creo…';$('designBox').style.display='block';$('designBox').textContent='Identifico il soggetto, preparo le viste tecniche e costruisco il Design Model…';
+ let fd=new FormData();fd.append('description',$('desc').value);fd.append('height_cm',$('height').value);fd.append('style',$('style').value);if(file)fd.append('image',file);
+ try{let res=await fetch('/api/design',{method:'POST',body:fd});let data=await res.json();designModel=data.result||null;designImage=data.concept_image||null; if(data.model_sheet){$('modelSheetVisual').style.display='flex';$('modelSheetVisual').innerHTML='<img src="'+data.model_sheet+'" style="max-width:100%;max-height:290px;object-fit:contain">';$('modelSheetPanel').innerHTML='<img src="'+data.model_sheet+'" style="max-width:100%;height:auto;display:block;margin:auto">';}let d=designModel||{};let views=(d.views||[]).map(v=>'• '+v.orientation+': '+(v.visible_parts||[]).join(', ')).join('<br>');$('designBox').innerHTML='<b>Soggetto: '+escapeHtml(d.subject||'—')+'</b><br>Confidenza: '+Math.round((d.overall_confidence||0)*100)+'%<br><br><b>Viste tecniche</b><br>'+views+(data.warning?'<br><br>⚠ '+escapeHtml(data.warning):'');if(designImage){$('conceptVisual').style.display='flex';$('conceptVisual').innerHTML='<img src="'+designImage+'">'}}catch(e){$('designBox').textContent='Errore Design Model: '+e.message}finally{$('designBtn').disabled=false;$('designBtn').textContent='✦ Crea concept + template'}
+};
+$('complexityBtn').onclick=async()=>{
+ $('complexityBtn').disabled=true;$('complexityBtn').textContent='⏳ Analisi…';$('complexityBox').style.display='block';$('complexityBox').textContent='Valuto silhouette, dettagli, simmetria e difficoltà costruttiva…';let fd=new FormData();fd.append('description',$('desc').value);if(file)fd.append('image',file);
+ try{let res=await fetch('/api/complexity',{method:'POST',body:fd});let data=await res.json();if(!res.ok||data.mode==='error')throw new Error(data.error||'Errore server');let r=data.result||{};let rec=(r.recommendations||[]).map(x=>'• '+escapeHtml(x)).join('<br>');let reasons=(r.reasons||[]).map(x=>'• '+escapeHtml(x)).join('<br>');$('complexityBox').innerHTML='<b>Complessità: '+escapeHtml(r.level||'—')+' — '+(r.score??'—')+'/100</b><br>Confidenza: '+Math.round((r.confidence||0)*100)+'%<br><br>'+reasons+(rec?'<br><br><b>Consigli</b><br>'+rec:'')}catch(e){$('complexityBox').textContent='Errore analisi complessità: '+e.message}finally{$('complexityBtn').disabled=false;$('complexityBtn').textContent='⌁ Analizza complessità'}
+};
+$('decomposeBtn').onclick=async()=>{
+ $('decomposeBtn').disabled=true;$('decomposeBtn').textContent='⏳ Scomposizione…';$('decompositionBox').style.display='block';$('decompositionBox').textContent='Identifico corpo, appendici e dettagli…';let fd=new FormData();fd.append('description',$('desc').value);if(file)fd.append('image',file);
+ try{let res=await fetch('/api/decompose',{method:'POST',body:fd});let data=await res.json();let r=data.result||{};let parts=r.parts||[];let rows=parts.map(p=>`• <b>${escapeHtml(p.label)}</b> — ${escapeHtml(p.category)}/${escapeHtml(p.role)} — ${Math.round((p.confidence||0)*100)}%${p.symmetry_group?' — simmetria: '+escapeHtml(p.symmetry_group):''}`).join('<br>');$('decompositionBox').innerHTML='<b>Soggetto: '+escapeHtml(r.subject||'—')+'</b><br>Confidenza globale: '+Math.round((r.overall_confidence||0)*100)+'%<br><br>'+rows+(r.notes?'<br><br>'+escapeHtml(r.notes):'')+(data.model_sheet?'<br><br><b>Model Sheet generato</b><br><img src="'+data.model_sheet+'" style="width:100%;max-height:320px;object-fit:contain;background:#fff;border-radius:12px">':'');}catch(e){$('decompositionBox').textContent='Errore scomposizione: '+e.message}finally{$('decomposeBtn').disabled=false;$('decomposeBtn').textContent='▣ Scomponi soggetto'}
+};
+$('go').onclick=async()=>{
+ $('go').disabled=true;$('bar').style.width='15%';setStatus('Avvio pipeline completa…');
+ try{let fd=new FormData();fd.append('description',$('desc').value);fd.append('height_cm',$('height').value);fd.append('hook_mm',$('hook').value);fd.append('level',$('level').value);fd.append('style',$('style').value);fd.append('stitches10',$('spc').value);fd.append('rounds10',$('rpc').value);if(file)fd.append('image',file);$('bar').style.width='45%';let res=await fetch('/api/generate',{method:'POST',body:fd});let data=await res.json();if(!res.ok||data.mode==='error')throw new Error(data.error||'Errore nella generazione.');$('bar').style.width='100%';render(data.result,data.mode,data.warning);let status=data.result&&data.result.pipeline_status;setStatus(status==='PASS'?'Pipeline core completata e validata.':(status==='REVIEW'?'Pipeline completata ma richiede revisione.':'Generazione completata in modalità demo/fallback.'));$('resultArea').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){setStatus('Errore: '+e.message);$('bar').style.width='0%'}finally{$('go').disabled=false}
+};
+$('openPattern').onclick=()=>{$('pattern').scrollIntoView({behavior:'smooth',block:'center'})};
+$('txt').onclick=()=>{if(!result)return;let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([result.pattern||''],{type:'text/plain'}));a.download='amigurumi-pattern.txt';a.click()};
+$('json').onclick=()=>{if(!result)return;let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));a.download='amigurumi-project.json';a.click()};
+$('print').onclick=()=>window.print();
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.t).classList.add('active')});
+
+document.querySelectorAll('#mainNav button').forEach(btn=>btn.onclick=()=>{
+ document.querySelectorAll('#mainNav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ const v=btn.dataset.view;
+ if(v==='settings'){$('settingsPanel').style.display='block';$('settingsPanel').open=true;$('settingsPanel').scrollIntoView({behavior:'smooth',block:'center'})}
+ else if(v==='create'){$('composer').scrollIntoView({behavior:'smooth',block:'center'});$('desc').focus()}
+ else if(v==='home')window.scrollTo({top:0,behavior:'smooth'});
+ else {$('resultArea').scrollIntoView({behavior:'smooth',block:'start'});setStatus(v==='projects'?'I miei progetti: sezione pronta per il prossimo modulo.':v.charAt(0).toUpperCase()+v.slice(1)+': sezione pronta per il prossimo modulo.')}
+});
+
+document.querySelectorAll('[data-example]').forEach(card=>card.onclick=()=>{$('desc').value='Crea un amigurumi di '+card.dataset.example.toLowerCase()+', fedele al soggetto e pronto da realizzare.';$('textMode').classList.add('active');$('imageMode').classList.remove('active');$('bothMode').classList.remove('active');$('desc').focus()});
+refreshSettings();
+</script>
+</body>
+</html>

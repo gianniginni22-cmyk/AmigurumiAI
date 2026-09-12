@@ -1,0 +1,396 @@
+{
+  "cases": [
+    {
+      "name": "teddy",
+      "reference_match": 100.0,
+      "pattern_validity": 98.0,
+      "pass": true,
+      "quality": {
+        "score": 98.0,
+        "status": "PASS",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "vision_confidence": 0.9,
+          "max_round_delta": 6.0,
+          "invalid_rounds": 0.0,
+          "closure_ok": 1.0,
+          "max_anchor_gap_cm": 0.0,
+          "height_relative_error": 0.0,
+          "component_scores": {
+            "visione": 90.0,
+            "struttura_grafo": 100.0,
+            "geometria": 100.0,
+            "conteggi_maglie": 100.0,
+            "giunzioni": 100.0,
+            "scala_target": 100.0
+          },
+          "component_weights": {
+            "visione": 0.2,
+            "struttura_grafo": 0.2,
+            "geometria": 0.15,
+            "conteggi_maglie": 0.2,
+            "giunzioni": 0.15,
+            "scala_target": 0.1
+          }
+        },
+        "gates": {
+          "graph_valid": true,
+          "stitch_counts": true,
+          "closure": true,
+          "joints_resolvable": true,
+          "has_geometry": true,
+          "confidence_acceptable": true
+        }
+      },
+      "role_score": 100.0,
+      "feature_score": 100.0,
+      "subject_score": 100.0,
+      "nodes": 12,
+      "edges": 11,
+      "techniques": [
+        "dettaglio/applicazione",
+        "disco_sc",
+        "ricamo/applicazione",
+        "spirale_sc",
+        "tubo_sc"
+      ],
+      "independent_gates": {
+        "quality": true,
+        "technique": true,
+        "topology": true,
+        "assembly": true,
+        "pattern": true,
+        "construction_metadata": true
+      },
+      "pattern_present": true,
+      "assembly_present": true
+    },
+    {
+      "name": "dinosaur",
+      "reference_match": 100.0,
+      "pattern_validity": 98.0,
+      "pass": true,
+      "quality": {
+        "score": 98.0,
+        "status": "PASS",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "vision_confidence": 0.9,
+          "max_round_delta": 6.0,
+          "invalid_rounds": 0.0,
+          "closure_ok": 1.0,
+          "max_anchor_gap_cm": 0.0,
+          "height_relative_error": 0.0,
+          "component_scores": {
+            "visione": 90.0,
+            "struttura_grafo": 100.0,
+            "geometria": 100.0,
+            "conteggi_maglie": 100.0,
+            "giunzioni": 100.0,
+            "scala_target": 100.0
+          },
+          "component_weights": {
+            "visione": 0.2,
+            "struttura_grafo": 0.2,
+            "geometria": 0.15,
+            "conteggi_maglie": 0.2,
+            "giunzioni": 0.15,
+            "scala_target": 0.1
+          }
+        },
+        "gates": {
+          "graph_valid": true,
+          "stitch_counts": true,
+          "closure": true,
+          "joints_resolvable": true,
+          "has_geometry": true,
+          "confidence_acceptable": true
+        }
+      },
+      "role_score": 100.0,
+      "feature_score": 100.0,
+      "subject_score": 100.0,
+      "nodes": 9,
+      "edges": 8,
+      "techniques": [
+        "cono_sc",
+        "spirale_sc",
+        "tubo_sc"
+      ],
+      "independent_gates": {
+        "quality": true,
+        "technique": true,
+        "topology": true,
+        "assembly": true,
+        "pattern": true,
+        "construction_metadata": true
+      },
+      "pattern_present": true,
+      "assembly_present": true
+    },
+    {
+      "name": "beaver",
+      "reference_match": 100.0,
+      "pattern_validity": 98.0,
+      "pass": true,
+      "quality": {
+        "score": 98.0,
+        "status": "PASS",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "vision_confidence": 0.9,
+          "max_round_delta": 6.0,
+          "invalid_rounds": 0.0,
+          "closure_ok": 1.0,
+          "max_anchor_gap_cm": 0.0,
+          "height_relative_error": 0.0,
+          "component_scores": {
+            "visione": 90.0,
+            "struttura_grafo": 100.0,
+            "geometria": 100.0,
+            "conteggi_maglie": 100.0,
+            "giunzioni": 100.0,
+            "scala_target": 100.0
+          },
+          "component_weights": {
+            "visione": 0.2,
+            "struttura_grafo": 0.2,
+            "geometria": 0.15,
+            "conteggi_maglie": 0.2,
+            "giunzioni": 0.15,
+            "scala_target": 0.1
+          }
+        },
+        "gates": {
+          "graph_valid": true,
+          "stitch_counts": true,
+          "closure": true,
+          "joints_resolvable": true,
+          "has_geometry": true,
+          "confidence_acceptable": true
+        }
+      },
+      "role_score": 100.0,
+      "feature_score": 100.0,
+      "subject_score": 100.0,
+      "nodes": 9,
+      "edges": 8,
+      "techniques": [
+        "dettaglio/applicazione",
+        "spirale_sc",
+        "tubo_sc"
+      ],
+      "independent_gates": {
+        "quality": true,
+        "technique": true,
+        "topology": true,
+        "assembly": true,
+        "pattern": true,
+        "construction_metadata": true
+      },
+      "pattern_present": true,
+      "assembly_present": true
+    },
+    {
+      "name": "mushroom",
+      "reference_match": 100.0,
+      "pattern_validity": 98.0,
+      "pass": true,
+      "quality": {
+        "score": 98.0,
+        "status": "PASS",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "vision_confidence": 0.9,
+          "max_round_delta": 6.0,
+          "invalid_rounds": 0.0,
+          "closure_ok": 1.0,
+          "max_anchor_gap_cm": 0.0,
+          "height_relative_error": 0.0,
+          "component_scores": {
+            "visione": 90.0,
+            "struttura_grafo": 100.0,
+            "geometria": 100.0,
+            "conteggi_maglie": 100.0,
+            "giunzioni": 100.0,
+            "scala_target": 100.0
+          },
+          "component_weights": {
+            "visione": 0.2,
+            "struttura_grafo": 0.2,
+            "geometria": 0.15,
+            "conteggi_maglie": 0.2,
+            "giunzioni": 0.15,
+            "scala_target": 0.1
+          }
+        },
+        "gates": {
+          "graph_valid": true,
+          "stitch_counts": true,
+          "closure": true,
+          "joints_resolvable": true,
+          "has_geometry": true,
+          "confidence_acceptable": true
+        }
+      },
+      "role_score": 100.0,
+      "feature_score": 100.0,
+      "subject_score": 100.0,
+      "nodes": 7,
+      "edges": 6,
+      "techniques": [
+        "applicazione",
+        "dettaglio/applicazione",
+        "spirale_sc"
+      ],
+      "independent_gates": {
+        "quality": true,
+        "technique": true,
+        "topology": true,
+        "assembly": true,
+        "pattern": true,
+        "construction_metadata": true
+      },
+      "pattern_present": true,
+      "assembly_present": true
+    },
+    {
+      "name": "robot",
+      "reference_match": 100.0,
+      "pattern_validity": 98.0,
+      "pass": true,
+      "quality": {
+        "score": 98.0,
+        "status": "PASS",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "vision_confidence": 0.9,
+          "max_round_delta": 6.0,
+          "invalid_rounds": 0.0,
+          "closure_ok": 1.0,
+          "max_anchor_gap_cm": 0.0,
+          "height_relative_error": 0.0,
+          "component_scores": {
+            "visione": 90.0,
+            "struttura_grafo": 100.0,
+            "geometria": 100.0,
+            "conteggi_maglie": 100.0,
+            "giunzioni": 100.0,
+            "scala_target": 100.0
+          },
+          "component_weights": {
+            "visione": 0.2,
+            "struttura_grafo": 0.2,
+            "geometria": 0.15,
+            "conteggi_maglie": 0.2,
+            "giunzioni": 0.15,
+            "scala_target": 0.1
+          }
+        },
+        "gates": {
+          "graph_valid": true,
+          "stitch_counts": true,
+          "closure": true,
+          "joints_resolvable": true,
+          "has_geometry": true,
+          "confidence_acceptable": true
+        }
+      },
+      "role_score": 100.0,
+      "feature_score": 100.0,
+      "subject_score": 100.0,
+      "nodes": 8,
+      "edges": 7,
+      "techniques": [
+        "cono_sc",
+        "spirale_sc",
+        "tubo_sc"
+      ],
+      "independent_gates": {
+        "quality": true,
+        "technique": true,
+        "topology": true,
+        "assembly": true,
+        "pattern": true,
+        "construction_metadata": true
+      },
+      "pattern_present": true,
+      "assembly_present": true
+    },
+    {
+      "name": "bird",
+      "reference_match": 100.0,
+      "pattern_validity": 98.0,
+      "pass": true,
+      "quality": {
+        "score": 98.0,
+        "status": "PASS",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "vision_confidence": 0.9,
+          "max_round_delta": 6.0,
+          "invalid_rounds": 0.0,
+          "closure_ok": 1.0,
+          "max_anchor_gap_cm": 0.0,
+          "height_relative_error": 0.0,
+          "component_scores": {
+            "visione": 90.0,
+            "struttura_grafo": 100.0,
+            "geometria": 100.0,
+            "conteggi_maglie": 100.0,
+            "giunzioni": 100.0,
+            "scala_target": 100.0
+          },
+          "component_weights": {
+            "visione": 0.2,
+            "struttura_grafo": 0.2,
+            "geometria": 0.15,
+            "conteggi_maglie": 0.2,
+            "giunzioni": 0.15,
+            "scala_target": 0.1
+          }
+        },
+        "gates": {
+          "graph_valid": true,
+          "stitch_counts": true,
+          "closure": true,
+          "joints_resolvable": true,
+          "has_geometry": true,
+          "confidence_acceptable": true
+        }
+      },
+      "role_score": 100.0,
+      "feature_score": 100.0,
+      "subject_score": 100.0,
+      "nodes": 5,
+      "edges": 4,
+      "techniques": [
+        "lamina_sc",
+        "spirale_sc",
+        "tubo_sc"
+      ],
+      "independent_gates": {
+        "quality": true,
+        "technique": true,
+        "topology": true,
+        "assembly": true,
+        "pattern": true,
+        "construction_metadata": true
+      },
+      "pattern_present": true,
+      "assembly_present": true
+    }
+  ],
+  "case_count": 6,
+  "passed_cases": 6,
+  "failed_cases": 0,
+  "reference_match_avg": 100.0,
+  "pattern_validity_avg": 98.0,
+  "pass": true
+}

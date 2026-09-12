@@ -1,0 +1,11 @@
+AMIGURUMI AI v0.7.4-DIAG
+
+Correzione eseguita:
+- /api/generate resta l'unico endpoint del pulsante ANALIZZA E GENERA;
+- aggiunta traccia esplicita degli stadi identita -> Design Model -> Shape Graph -> geometria -> tecnica -> pattern -> validazione;
+- mostrati conteggi di parti, nodi, pezzi compilati, caratteri pattern e assemblaggio;
+- fingerprint visibile della build: 0.7.4-DIAG;
+- test automatico dell'endpoint /api/generate in modalita locale con verifica di pattern e assemblaggio non vuoti;
+- 39 test PASS.
+
+NON e una release GitHub. E il candidato sorgente da verificare su Windows.
