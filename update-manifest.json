@@ -1,6 +1,6 @@
 {
-  "version": "0.6.2.3",
-  "installer_url": "https://github.com/gianniginni22-cmyk/AmigurumiAI/releases/download/v0.6.2.3/AmigurumiAI-Setup-0.6.2.3.exe",
-  "sha256": "16F208643AB49CC9297B01E1FD7564E54589BF8C4BA64BFF136A47A711DB57DC",
-  "mandatory": false
+  "mandatory": false,
+  "installer_url": "https://github.com/gianniginni22-cmyk/AmigurumiAI/releases/download/v0.7.4/AmigurumiAI-Setup-0.7.4.exe",
+  "version": "0.7.4",
+  "sha256": "e1136be557dcd08a2055928017dcd840f202885cba0f3a106829acf989e8cfa4"
 }
